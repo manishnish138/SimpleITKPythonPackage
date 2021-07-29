@@ -31,4 +31,5 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             arm64v8/ubuntu:20.04 \
-            bash -exc './scripts/dockcross-manylinux-build-wheels.sh'
+            bash -exc 'ls && \
+            ./scripts/dockcross-manylinux-build-wheels.sh'
