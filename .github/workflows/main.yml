@@ -19,5 +19,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Build dockcross
+        run: |
+          docker run dockcross/manylinux2014-aarch64 > /tmp/dockcross-manylinux2014-aarch64 && chmod u+x /tmp/dockcross-manylinux2014-aarch64
+
       - name: Build wheel
-        run: ./scripts/dockcross-manylinux-build-wheels.sh
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            arm64v8/ubuntu:20.04 \
+            bash -exc './scripts/dockcross-manylinux-build-wheels.sh'
